@@ -1,0 +1,20 @@
+place, % of women who were beaten by partner while pregnant
+
+Brazil, 9.5
+Bangladesh, 11
+Cambodia, 2.5
+Canada, 10
+Colombia, 12.8
+Dominican Republic, 6.2
+Egypt, 11.1
+Ethiopia, 8
+Haiti, 6.5
+Japan, 1
+Namibia, 6
+Nicaragua, 11.1
+Peru, 21.5
+Samoa, 10
+Serbia, 3
+Tanzania, 9.5
+Thailand, 4
+United States, 8

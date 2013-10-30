@@ -1,0 +1,23 @@
+place, % of women beaten by a partner in lifetime
+
+Bangladesh, 57.5
+Brazil, 33
+Cambodia, 17.5
+Canada, 6
+Colombia, 44.1
+Dominican Republic, 22.3
+Egypt, 34.4
+Ethiopia, 71
+Japan, 15
+Haiti, 28.8
+India, 18.9
+Namibia, 36
+New Zealand, 38
+Nicaragua, 30.2
+Peru, 42.4
+Samoa, 46
+Serbia, 24
+Tanzania, 47.5
+Thailand, 44
+United States, 21
+Zambia, 48.4

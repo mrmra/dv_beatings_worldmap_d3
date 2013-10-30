@@ -1,0 +1,8 @@
+place, of-beaten-percentage-had-children
+Cambodia, 94.1
+Dominican Republic, 90.1
+Egypt, 89.5
+Haiti, 76.7
+India, 92
+Nicaragua, 88.9 
+Zambia, 72
