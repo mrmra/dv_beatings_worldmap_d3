@@ -6,11 +6,11 @@
 var data= [];
 var video_toggled = 0;
 var width = 1028,
-    height = 720;
-		
+    height = 720;	
+var scaleIn = width+20;
 var projection=d3.geo.mercator()
-	.scale([width])
-	.translate([0,0]);
+	.scale([scaleIn])
+	.translate([0,20]);
 
 var path = d3.geo.path()
 	.projection(projection);
@@ -19,10 +19,10 @@ var color_beatPartner=d3.scale.quantize()
     .domain([6, 72])
     .range(d3.range(9).map(function(i) { return "c" + i; }));
 
-// ! FIX THE ZOOM/PAN
-var zoom = d3.behavior.zoom()
+// ! FIX THE ZOOM/PAN -- actually ... wait, do I even want this to be available?
+/*var zoom = d3.behavior.zoom()
     .scaleExtent([1, 8])
-    .on("zoom", move);
+    .on("zoom", move);*/
 	
 var svg = d3.select("#container").append("svg")
     .attr("width", width)
@@ -183,8 +183,12 @@ d3.json("world-50m.json", function(error, world) {
 		var titleText = $(this).data("name");
 		var beatPregnantText = $(this).data("beatPregnant");
 		var beatPartnerText=$(this).data("beatPartner");
-		var canvasText=titleText + " has " + beatPartnerText + "%";
-		$(this)
+		var canvasText;
+		if(beatPartnerText !== undefined) canvasText = beatPartnerText + "% of women are beaten by partners in " + titleText; 
+			else canvasText="Stats not yet collected.";
+		if(beatPregnantText !== undefined) canvasText += ", " + beatPregnantText + "% while pregnant."
+		
+		/* deprecated in favor of Canvas overlay $(this)
 			.data('tipText', titleText)
 			.data('name', titleText);
 		$('<p class="tooltip">'+titleText+'</br>'+'% of beaten women who were beaten while pregnant: '+beatPregnantText+'</p>')
@@ -193,7 +197,8 @@ d3.json("world-50m.json", function(error, world) {
 			.css('top', (event.pageY - 10) + 'px')
 			.css('left', (event.pageX + 20) + 'px')
 			.css('z-index', 3)
-			.fadeIn('slow');
+			.fadeIn('slow');*/
+			
 		$('<canvas id="myCanvas"></canvas>') //animate text rather than tooltip
 			.appendTo('#container')
 			.css('top', '0')
@@ -201,13 +206,13 @@ d3.json("world-50m.json", function(error, world) {
 			.css('position', 'fixed')
 			.css('z-index','2');
 		var myCanvas=document.getElementById("myCanvas");
+		myCanvas.width = 720;
 		var myContext=myCanvas.getContext("2d");
-		myContext.font="25pt Arial";
-		myContext.fillText(canvasText, 0,30);
+		myContext.font="15pt Arial";
+		myContext.fillText(canvasText, 0,40);
 		$('#myCanvas').animate({'left':'+=300px'}, 6000, 'swing');
 		},
 		function(){
-			$('.tooltip').remove();
 			$('#myCanvas').remove();
 		});
 		
@@ -331,6 +336,15 @@ d3.json("world-50m.json", function(error, world) {
 				.css('position', 'fixed')
 				.css('z-index', 2);}
 		
+		else if(countryId == "Pakistan") {
+			$("<iframe class='youtube-player' type='text/html' width='320' height='192' src='http://www.youtube.com/embed/ioL529z-mKk?html5=1&autoplay=1&controls=0' allowfullscreen frameborder='0'></iframe>")			
+			.appendTo("#container") // !this all should really be in a style sheet to avoid repetition, but was buggy in css, need to debug
+				.attr('class', 'videotest') 
+				.css('top', '0px')
+				.css('right','0px')
+				.css('position', 'fixed')
+				.css('z-index', 2);}		
+		
 		else if(countryId == "Philippines") {
 			$("<iframe class='youtube-player' type='text/html' width='320' height='192' src='http://www.youtube.com/embed/sVxy9oEShPQ?html5=1&autoplay=1&controls=0' allowfullscreen frameborder='0'></iframe>")			
 			.appendTo("#container") // !this all should really be in a style sheet to avoid repetition, but was buggy in css, need to debug
@@ -420,15 +434,3 @@ d3.json("world-50m.json", function(error, world) {
 	});
 //now closing d3 world file read
 });
-		  
-	 /*ADD-ONS
-	first a ZOOM-in function -- change "group" to an appropriate svg.append.*/
-	
-	function move() {
-		var t = d3.event.translate,
-			s = d3.event.scale;
-		//t[0] = Math.min(width / 2 * (s - 1) + 230 * s, Math.max(width / 2 * (1 - s) - 230 * s, t[0]));
-		//t[1] = Math.min(height / 2 * (s - 1) + 230 * s, Math.max(height / 2 * (1 - s) - 230 * s, t[1]));
-		zoom.translate(t);
-		g.style("stroke-width", 1 / s).attr("transform", "translate(" + t + ")scale(" + s + ")");
-};
