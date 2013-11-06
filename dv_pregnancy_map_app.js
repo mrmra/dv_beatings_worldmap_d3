@@ -30,8 +30,7 @@ var svg = d3.select("#container").append("svg")
 	.style("z-index", 1)
 	.style("position", "relative")
 	.append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-    .call(zoom);
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var g = svg.append("g");
 
