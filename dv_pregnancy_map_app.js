@@ -183,9 +183,9 @@ d3.json("world-50m.json", function(error, world) {
 		var beatPregnantText = $(this).data("beatPregnant");
 		var beatPartnerText=$(this).data("beatPartner");
 		var canvasText;
-		if(beatPartnerText !== undefined) canvasText = beatPartnerText + "% of women are beaten by partners in " + titleText; 
+		if(beatPartnerText !== undefined) canvasText = beatPartnerText + "% of women beaten by partners in " + titleText; 
 			else canvasText="Stats not yet collected.";
-		if(beatPregnantText !== undefined) canvasText += ", " + beatPregnantText + "% while pregnant."
+		if(beatPregnantText !== undefined) canvasText += ", " + beatPregnantText + "% were pregnant."
 		
 		/* deprecated in favor of Canvas overlay $(this)
 			.data('tipText', titleText)
