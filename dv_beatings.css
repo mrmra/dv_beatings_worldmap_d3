@@ -29,7 +29,15 @@ border-radius: 8px;
 pointer-events: none;
 }
 
-<?php // colorbrewer2.org!?>
+#footer {
+bottom: 0;
+height: 30px;
+border-radius: 10px;
+position: absolute;
+z-index: 7;
+}
+
+<?php /* colorbrewer2.org */ ?>
 
 .c0 { fill:rgb(255,245,240); }
 .c1 { fill:rgb(254,224,210); }
@@ -42,6 +50,21 @@ pointer-events: none;
 .c8 { fill:rgb(103,0,13); }
 .colordefault { fill: rgb(245,245,220); }
 
+#legend {
+    padding: 1.5em 0 0 1.5em;
+	position: absolute;
+	z-index: 5;
+}
+
+li.key {
+    border-top-width: 15px;
+    border-top-style: solid;
+    font-size: .75em;
+    width: 10%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 #video_dancing {
 position: fixed;
 top:0px;
@@ -50,3 +73,5 @@ width: 320px;
 height: 192px;
 z-index: 2;
 }
+
+

@@ -19,6 +19,22 @@ var color_beatPartner=d3.scale.quantize()
     .domain([6, 72])
     .range(d3.range(9).map(function(i) { return "c" + i; }));
 
+
+var legend = d3.select("#legend")
+				.append('ul')
+				.attr('class', 'inline');
+
+var keys = legend.selectAll('li.key')
+				 .data(color_beatPartner.range());
+
+keys.enter().append('li')
+    .attr('class', 'key')
+    .style('border-top-color', String)
+    .text(function(d) {
+        var r = colors.invertExtent(d);
+        return formats.percent(r[0]);
+    });
+
 // ! FIX THE ZOOM/PAN -- actually ... wait, do I even want this to be available?
 /*var zoom = d3.behavior.zoom()
     .scaleExtent([1, 8])
@@ -42,11 +58,15 @@ var countryCircles = svg.append("g")
 			.attr("id", "countries")
 			.selectAll("path");			
 			
+			
 /* !break out boundaries separately, like countries -- implement later
 	var boundaries = svg.append("boundariesmap")
 					.attr("id","boundaries")
 					.selectAll("path");*/
 			
+$(document).ready(function() {
+
+
 			
 d3.json("world-50m.json", function(error, world) {
 	var countries = topojson.feature(world, world.objects.countries).features;
@@ -91,7 +111,7 @@ d3.json("world-50m.json", function(error, world) {
 			.attr("class", "country")
 			//.attr("beatPregnant", function(d,i) {if(countries[i].beatPregnant) return countries[i].beatPregnant;}) DEPRECATED less mess to use jQuery .data()
 			.attr("id", function(d, i) {return countries[i].name;})
-			/* !D3 native mouse events, figure out laterm use jQuery below			
+			/* !D3 native mouse events, figure out later for now use jQuery below			
 				.on("mouseover", function(d) {				
 				div.transition()
 					.duration(200)
@@ -112,7 +132,6 @@ d3.json("world-50m.json", function(error, world) {
 				if(countries[i].beatPartner) return currentclass+" "+color_beatPartner(countries[i].beatPartner);
 				else{return currentclass;} 		
 		})
-
 	// A nice red circle popping effect for beatPregnant
 		countryCircles=countryCircles.data(countryCirclesPreg)
 		  .enter()			
@@ -161,6 +180,7 @@ d3.json("world-50m.json", function(error, world) {
           .style("fill-opacity", 0.2)
           .style("stroke", "blue")
           .style("stroke-opacity", 0.2)
+		  //animate_circles();		  
 		  .transition()
           .duration(8000)
           .ease(Math.sqrt)
@@ -209,7 +229,7 @@ d3.json("world-50m.json", function(error, world) {
 		var myContext=myCanvas.getContext("2d");
 		myContext.font="15pt Arial";
 		myContext.fillText(canvasText, 0,40);
-		$('#myCanvas').animate({'left':'+=300px'}, 6000, 'swing');
+		$('#myCanvas').animate({'left':'+=175px'}, 5000, 'swing');
 		},
 		function(){
 			$('#myCanvas').remove();
@@ -218,7 +238,7 @@ d3.json("world-50m.json", function(error, world) {
 		
 	//on click, bring up video!
 	
-	$('.country, .tooltip, .circle').click(function(event){
+	$('.country, .circle').click(function(event){
 		var countryId = $(this).data("name");
 		if(video_toggled) {
 			$('.videotest').remove();
@@ -433,3 +453,23 @@ d3.json("world-50m.json", function(error, world) {
 	});
 //now closing d3 world file read
 });
+	/*function animate_circles(){
+		
+		var length = length(countries);
+		for(i=0; i<length; i++) {
+	
+		var newRadius= countriesExternal[i].beatPregnant*1.25;
+		var newOpacity = countriesExternal[i].beatPregnant*0.1;
+	
+		$(".circle")
+			.animate({
+				r: newRadius,
+				opacity: newOpacity
+				}, 8000, function(){}
+			);
+		animate_circles(); // setTimeOut then loop
+	}
+}*/
+	
+});	
+	
